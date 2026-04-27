@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kazene.org/schemas/vcnia/gratitude-event-v0.1.schema.json",
+  "title": "VCNIA Gratitude Event",
+  "description": "A Gratitude Event records that a trace has been recognized, appreciated, referenced, or used within the VCNIA value circulation stack.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "gratitude_id",
+    "trace_id",
+    "sender_id",
+    "receiver_id",
+    "timestamp"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "gratitude_event",
+      "description": "The fixed event type for a VCNIA gratitude event."
+    },
+    "gratitude_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^gratitude_[A-Za-z0-9._-]+$",
+      "description": "A unique identifier for the gratitude event."
+    },
+    "trace_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^trace_[A-Za-z0-9._-]+$",
+      "description": "The trace being recognized by this gratitude event."
+    },
+    "sender_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "The human, AI agent, system, community, or process issuing the gratitude event."
+    },
+    "receiver_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "The human, AI agent, system, project, or contributor receiving recognition."
+    },
+    "gratitude_type": {
+      "type": "string",
+      "enum": [
+        "appreciation",
+        "acknowledgement",
+        "citation",
+        "reference",
+        "impact_mark",
+        "contribution_note",
+        "gratitude_receipt",
+        "ai_readable_recognition",
+        "other"
+      ],
+      "description": "The type of gratitude or recognition being recorded."
+    },
+    "impact_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Optional normalized impact score from 0.0 to 1.0."
+    },
+    "message": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Optional human-readable message explaining the gratitude event."
+    },
+    "contribution_ref": {
+      "type": "object",
+      "description": "Optional reference to the contribution, output, decision, or context in which the trace had impact.",
+      "additionalProperties": false,
+      "properties": {
+        "ref_type": {
+          "type": "string",
+          "enum": [
+            "document",
+            "repository",
+            "prompt",
+            "code",
+            "dataset",
+            "decision",
+            "ai_output",
+            "human_input",
+            "protocol",
+            "other"
+          ],
+          "description": "The type of contribution reference."
+        },
+        "ref_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Identifier of the referenced contribution or object."
+        },
+        "ref_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URI pointing to the referenced contribution."
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Optional description of how the trace contributed."
+        }
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the gratitude event was issued, expressed in ISO 8601 date-time format."
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional contextual information about the project, task, layer, workflow, or system in which gratitude was issued.",
+      "additionalProperties": true
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "self_attested",
+        "system_verified",
+        "human_verified",
+        "multi_source_verified",
+        "disputed",
+        "rejected"
+      ],
+      "description": "Optional verification state of the gratitude event."
+    },
+    "related_gratitude_ids": {
+      "type": "array",
+      "description": "Optional list of related gratitude events.",
+      "items": {
+        "type": "string",
+        "pattern": "^gratitude_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "related_trace_ids": {
+      "type": "array",
+      "description": "Optional list of additional traces related to this gratitude event.",
+      "items": {
+        "type": "string",
+        "pattern": "^trace_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional implementation-specific metadata.",
+      "additionalProperties": true
+    }
+  }
+}
