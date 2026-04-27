@@ -1,0 +1,53 @@
+{
+  "type": "trust_event",
+  "trust_event_id": "trust_event_vcnia_001",
+  "subject_id": "creator_shidenkai_alpha",
+  "related_trace_ids": [
+    "trace_vcnia_001"
+  ],
+  "related_gratitude_ids": [
+    "gratitude_vcnia_001"
+  ],
+  "trust_delta": 0.04,
+  "trust_score_after": 0.76,
+  "reason": "The referenced trace received a verified gratitude event and contributed to the formation of the VCNIA four-layer value circulation architecture.",
+  "trust_dimensions": {
+    "originality": 0.08,
+    "reliability": 0.04,
+    "usefulness": 0.06,
+    "integrity": 0.05,
+    "citation_quality": 0.03,
+    "verification_quality": 0.04,
+    "long_term_value": 0.07,
+    "network_contribution": 0.09,
+    "collaboration_quality": 0.05,
+    "governance_alignment": 0.04
+  },
+  "verification_status": "self_attested",
+  "risk_flags": [
+    "none"
+  ],
+  "decay": {
+    "decay_applied": false,
+    "decay_factor": 1.0,
+    "decay_reason": "No decay applied because this is an initial sample trust event."
+  },
+  "governance_ref": {
+    "policy_id": "vcnia-governance-policy",
+    "policy_version": "0.1.0",
+    "policy_uri": "https://example.org/vcnia/governance-policy-v0.1"
+  },
+  "timestamp": "2026-04-26T02:00:00Z",
+  "context": {
+    "project": "vcnia",
+    "layer": "trust",
+    "document": "WHITEPAPER.md",
+    "version": "0.1.0",
+    "description": "Sample trust event derived from a trace record and gratitude event in the VCNIA stack."
+  },
+  "metadata": {
+    "status": "sample",
+    "license": "to-be-defined",
+    "notes": "This is a sample trust event for validating trust-event-v0.1.schema.json."
+  }
+}
