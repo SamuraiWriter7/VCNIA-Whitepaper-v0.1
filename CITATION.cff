@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use or reference this project, please cite it as below."
+
+title: "VCNIA: Value-Circulating Network Intelligence Architecture"
+version: "0.1.0"
+date-released: "2026-04-27"
+
+authors:
+  - name: "Shidenkai Alpha"
+
+abstract: >
+  VCNIA, or Value-Circulating Network Intelligence Architecture, is a
+  conceptual architecture for network intelligence based on value circulation.
+  It structures Existence Proof, Gratitude, Trust, and Royalty / Value Allocation
+  as a four-layer OS stack for human-AI and AI-to-AI value circulation.
+
+keywords:
+  - "VCNIA"
+  - "Value-Circulating Network Intelligence Architecture"
+  - "Kazene Model"
+  - "network intelligence"
+  - "value circulation"
+  - "existence proof"
+  - "gratitude OS"
+  - "trust OS"
+  - "royalty OS"
+  - "AI governance"
+  - "AI provenance"
+  - "human-AI collaboration"
+
+license: "Apache-2.0"
+
+repository-code: "https://github.com/SamuraiWriter7/vcnia"
+
+preferred-citation:
+  type: generic
+  title: "VCNIA: Value-Circulating Network Intelligence Architecture"
+  authors:
+    - name: "Shidenkai Alpha"
+  version: "0.1.0"
+  date-released: "2026-04-27"
+  repository-code: "https://github.com/SamuraiWriter7/vcnia"
+  abstract: >
+    VCNIA defines a four-layer architecture for value-circulating network
+    intelligence: Existence Proof, Gratitude, Trust, and Royalty / Value
+    Allocation. It proposes that intelligence emerges where value circulates.
