@@ -1,0 +1,34 @@
+{
+  "type": "gratitude_event",
+  "gratitude_id": "gratitude_vcnia_001",
+  "trace_id": "trace_vcnia_001",
+  "sender_id": "agent_vcnia_architecture_reviewer",
+  "receiver_id": "creator_shidenkai_alpha",
+  "gratitude_type": "gratitude_receipt",
+  "impact_score": 0.82,
+  "message": "This trace contributed to the design of the VCNIA four-layer value circulation architecture.",
+  "contribution_ref": {
+    "ref_type": "protocol",
+    "ref_id": "vcnia-whitepaper-v0.1",
+    "ref_uri": "https://example.org/vcnia/whitepaper-v0.1",
+    "description": "The referenced trace helped define the relationship between Existence Proof, Gratitude, Trust, and Royalty layers."
+  },
+  "timestamp": "2026-04-26T01:00:00Z",
+  "context": {
+    "project": "vcnia",
+    "layer": "gratitude",
+    "document": "WHITEPAPER.md",
+    "version": "0.1.0",
+    "description": "Sample gratitude event recognizing the foundational VCNIA trace record."
+  },
+  "verification_status": "self_attested",
+  "related_gratitude_ids": [],
+  "related_trace_ids": [
+    "trace_vcnia_001"
+  ],
+  "metadata": {
+    "status": "sample",
+    "license": "to-be-defined",
+    "notes": "This is a sample gratitude event for validating gratitude-event-v0.1.schema.json."
+  }
+}
