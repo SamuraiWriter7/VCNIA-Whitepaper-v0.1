@@ -1,0 +1,128 @@
+name: Validate VCNIA Specs
+
+on:
+  push:
+    paths:
+      - "schemas/**"
+      - "examples/**"
+      - ".github/workflows/validate-specs.yml"
+  pull_request:
+    paths:
+      - "schemas/**"
+      - "examples/**"
+      - ".github/workflows/validate-specs.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jsonschema
+
+      - name: Debug file tree
+        run: |
+          pwd
+          find . -maxdepth 4 -type f | sort
+
+      - name: Validate VCNIA JSON Schemas and samples
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          validation_pairs = [
+              {
+                  "name": "Trace Record v0.1",
+                  "schema": "schemas/trace-record-v0.1.schema.json",
+                  "sample": "examples/trace-record.sample.json",
+              },
+              {
+                  "name": "Gratitude Event v0.1",
+                  "schema": "schemas/gratitude-event-v0.1.schema.json",
+                  "sample": "examples/gratitude-event.sample.json",
+              },
+              {
+                  "name": "Trust Event v0.1",
+                  "schema": "schemas/trust-event-v0.1.schema.json",
+                  "sample": "examples/trust-event.sample.json",
+              },
+              {
+                  "name": "Value Allocation Event v0.1",
+                  "schema": "schemas/value-allocation-v0.1.schema.json",
+                  "sample": "examples/value-allocation.sample.json",
+              },
+          ]
+
+          def load_json(path: str):
+              file_path = Path(path)
+              if not file_path.exists():
+                  raise FileNotFoundError(f"File not found: {path}")
+
+              try:
+                  return json.loads(file_path.read_text(encoding="utf-8"))
+              except json.JSONDecodeError as e:
+                  raise ValueError(f"Invalid JSON in {path}: {e}") from e
+
+          failed = False
+
+          for pair in validation_pairs:
+              name = pair["name"]
+              schema_path = pair["schema"]
+              sample_path = pair["sample"]
+
+              print(f"\n=== Validating {name} ===")
+              print(f"Schema: {schema_path}")
+              print(f"Sample: {sample_path}")
+
+              try:
+                  schema = load_json(schema_path)
+                  sample = load_json(sample_path)
+
+                  Draft202012Validator.check_schema(schema)
+
+                  validator = Draft202012Validator(
+                      schema,
+                      format_checker=FormatChecker()
+                  )
+
+                  errors = sorted(
+                      validator.iter_errors(sample),
+                      key=lambda e: list(e.path)
+                  )
+
+                  if errors:
+                      failed = True
+                      print(f"ERROR: {name} sample is invalid.")
+                      for error in errors:
+                          path = ".".join(str(p) for p in error.path)
+                          if not path:
+                              path = "<root>"
+                          print(f"  - Path: {path}")
+                          print(f"    Message: {error.message}")
+                  else:
+                      print(f"OK: {name} sample is valid.")
+
+              except Exception as e:
+                  failed = True
+                  print(f"ERROR: {e}")
+
+          if failed:
+              print("\nValidation failed.")
+              sys.exit(1)
+
+          print("\nAll VCNIA schema samples are valid.")
+          PY
