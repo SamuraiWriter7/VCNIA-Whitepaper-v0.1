@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kazene.org/schemas/vcnia/value-allocation-v0.1.schema.json",
+  "title": "VCNIA Value Allocation Event",
+  "description": "A Value Allocation Event records the return or allocation of value to contributors based on trace records, gratitude events, trust signals, and governance policy within the VCNIA value circulation stack.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "allocation_id",
+    "recipient_id",
+    "source_trace_ids",
+    "value_type",
+    "amount",
+    "allocation_rule",
+    "timestamp"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "value_allocation_event",
+      "description": "The fixed event type for a VCNIA value allocation event."
+    },
+    "allocation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^allocation_[A-Za-z0-9._-]+$",
+      "description": "A unique identifier for the value allocation event."
+    },
+    "recipient_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "The human, AI agent, system, project, repository, or contributor receiving value."
+    },
+    "source_trace_ids": {
+      "type": "array",
+      "description": "Trace records used as the contribution basis for this allocation.",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^trace_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "related_gratitude_ids": {
+      "type": "array",
+      "description": "Optional gratitude events used as recognition signals for this allocation.",
+      "items": {
+        "type": "string",
+        "pattern": "^gratitude_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "related_trust_event_ids": {
+      "type": "array",
+      "description": "Optional trust events used as reliability signals for this allocation.",
+      "items": {
+        "type": "string",
+        "pattern": "^trust_event_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "trust_profile_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Optional reference to the trust profile used for this allocation."
+    },
+    "value_type": {
+      "type": "string",
+      "enum": [
+        "monetary",
+        "credit",
+        "point",
+        "reputation",
+        "access",
+        "visibility",
+        "governance",
+        "royalty_share",
+        "citation_priority",
+        "gratitude_token",
+        "ai_readable_status",
+        "other"
+      ],
+      "description": "The type of value being allocated."
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "The amount of value allocated. For non-monetary value, this may represent credits, points, units, or normalized value."
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Optional unit of the allocated value, such as Q-credit, point, token, share, or internal credit unit."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Optional ISO 4217 currency code. Recommended only when value_type is monetary."
+    },
+    "weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Optional normalized contribution weight used in the allocation."
+    },
+    "allocation_rule": {
+      "type": "string",
+      "enum": [
+        "equal_split",
+        "trace_weighted",
+        "gratitude_weighted",
+        "trust_weighted",
+        "hybrid_weighted",
+        "governance_defined",
+        "manual_review",
+        "decay_adjusted",
+        "long_term_weighted",
+        "other"
+      ],
+      "description": "The rule used to calculate or determine the value allocation."
+    },
+    "settlement_period": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$",
+      "description": "Optional settlement period in YYYY-MM format."
+    },
+    "calculation": {
+      "type": "object",
+      "description": "Optional calculation details used to derive the allocation amount or weight.",
+      "additionalProperties": false,
+      "properties": {
+        "total_value_pool": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Optional total value pool from which this allocation was drawn."
+        },
+        "trace_weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Weight assigned to trace contribution."
+        },
+        "gratitude_factor": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Factor derived from gratitude events."
+        },
+        "trust_factor": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Factor derived from trust profile or trust events."
+        },
+        "governance_modifier": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Modifier derived from governance policy."
+        },
+        "decay_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Optional decay factor applied to older contributions."
+        },
+        "formula": {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Optional human-readable formula or calculation explanation."
+        }
+      }
+    },
+    "governance_policy": {
+      "type": "object",
+      "description": "Optional reference to the governance policy used for this allocation.",
+      "additionalProperties": false,
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Identifier of the governance policy."
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Version of the governance policy."
+        },
+        "policy_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URI pointing to the governance policy."
+        }
+      }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "self_attested",
+        "system_verified",
+        "human_verified",
+        "multi_source_verified",
+        "disputed",
+        "rejected"
+      ],
+      "description": "Optional verification state of the allocation event."
+    },
+    "risk_flags": {
+      "type": "array",
+      "description": "Optional list of risk signals associated with this allocation.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "possible_false_claim",
+          "possible_duplicate_claim",
+          "possible_sybil_attack",
+          "possible_trust_farming",
+          "possible_false_gratitude",
+          "possible_identity_spoofing",
+          "possible_attribution_laundering",
+          "possible_collusion",
+          "possible_allocation_manipulation",
+          "insufficient_provenance",
+          "disputed_claim",
+          "other"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "dispute_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "open",
+        "under_review",
+        "resolved",
+        "rejected",
+        "appealed"
+      ],
+      "description": "Optional dispute status for the allocation event."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the value allocation event was issued, expressed in ISO 8601 date-time format."
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional contextual information about the project, workflow, settlement, platform, or system in which this allocation was issued.",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional implementation-specific metadata.",
+      "additionalProperties": true
+    }
+  }
+}
