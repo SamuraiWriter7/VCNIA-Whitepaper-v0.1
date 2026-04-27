@@ -1,0 +1,47 @@
+VCNIA: Value-Circulating Network Intelligence Architecture
+Copyright 2026 Shidenkai Alpha
+
+This product includes documentation, schemas, examples, and conceptual
+architecture materials developed as part of the VCNIA project.
+
+VCNIA stands for Value-Circulating Network Intelligence Architecture.
+
+Its core stack is:
+
+    Existence Proof → Gratitude → Trust → Royalty / Value Allocation
+    → Network Intelligence
+
+Its core principle is:
+
+    Intelligence emerges where value circulates.
+
+This project is licensed under the Apache License, Version 2.0.
+See the LICENSE file for details.
+
+The following names and concepts are used as project identifiers,
+conceptual architecture terms, or specification terms within this repository:
+
+    VCNIA
+    Value-Circulating Network Intelligence Architecture
+    Kazene Model of Network Intelligence
+    Value Circulation OS Stack
+    Existence Proof OS
+    Gratitude OS
+    Trust OS
+    Royalty OS
+
+Use of this NOTICE file does not grant trademark rights or exclusive rights
+to any project name, concept name, or identifier beyond the permissions
+provided by the Apache License 2.0.
+
+This project is an early-stage conceptual and technical specification.
+It is not, by itself, a legal license system, financial instrument,
+payment processor, copyright enforcement system, or universal attribution
+authority.
+
+Recommended citation:
+
+    Shidenkai Alpha. VCNIA: Value-Circulating Network Intelligence Architecture.
+    Version 0.1.0. 2026.
+
+For citation metadata, see CITATION.cff.
