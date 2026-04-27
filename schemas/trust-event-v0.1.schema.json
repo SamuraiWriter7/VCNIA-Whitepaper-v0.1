@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kazene.org/schemas/vcnia/trust-event-v0.1.schema.json",
+  "title": "VCNIA Trust Event",
+  "description": "A Trust Event records a trust update derived from trace records, gratitude events, verification signals, and contribution history within the VCNIA value circulation stack.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "trust_event_id",
+    "subject_id",
+    "timestamp",
+    "trust_delta",
+    "reason"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "trust_event",
+      "description": "The fixed event type for a VCNIA trust event."
+    },
+    "trust_event_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^trust_event_[A-Za-z0-9._-]+$",
+      "description": "A unique identifier for the trust event."
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "The human, AI agent, system, project, trace, or contributor whose trust state is being updated."
+    },
+    "related_trace_ids": {
+      "type": "array",
+      "description": "Optional list of trace records related to this trust event.",
+      "items": {
+        "type": "string",
+        "pattern": "^trace_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "related_gratitude_ids": {
+      "type": "array",
+      "description": "Optional list of gratitude events used as input for this trust update.",
+      "items": {
+        "type": "string",
+        "pattern": "^gratitude_[A-Za-z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "trust_delta": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1,
+      "description": "The change in trust score caused by this event. Positive values increase trust; negative values decrease trust."
+    },
+    "trust_score_after": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Optional normalized trust score after this event has been applied."
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "Human-readable explanation of why this trust event was issued."
+    },
+    "trust_dimensions": {
+      "type": "object",
+      "description": "Optional dimension-specific trust changes or scores.",
+      "additionalProperties": false,
+      "properties": {
+        "originality": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to originality."
+        },
+        "reliability": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to reliability."
+        },
+        "usefulness": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to usefulness."
+        },
+        "integrity": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to integrity and low manipulation risk."
+        },
+        "citation_quality": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to citation and reference quality."
+        },
+        "verification_quality": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to verification strength."
+        },
+        "long_term_value": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to durable contribution value."
+        },
+        "network_contribution": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to contribution to the broader network."
+        },
+        "collaboration_quality": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to collaborative behavior."
+        },
+        "governance_alignment": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Trust change or score related to alignment with governance principles."
+        }
+      }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "self_attested",
+        "system_verified",
+        "human_verified",
+        "multi_source_verified",
+        "disputed",
+        "rejected"
+      ],
+      "description": "Optional verification state of the trust event."
+    },
+    "risk_flags": {
+      "type": "array",
+      "description": "Optional list of risk signals associated with this trust event.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "possible_spam",
+          "possible_sybil_attack",
+          "possible_trust_farming",
+          "possible_false_gratitude",
+          "possible_identity_spoofing",
+          "possible_attribution_laundering",
+          "possible_collusion",
+          "possible_manipulation",
+          "insufficient_provenance",
+          "disputed_claim",
+          "other"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "decay": {
+      "type": "object",
+      "description": "Optional trust decay information.",
+      "additionalProperties": false,
+      "properties": {
+        "decay_applied": {
+          "type": "boolean",
+          "description": "Whether trust decay was applied in this event."
+        },
+        "decay_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Decay factor applied to previous trust."
+        },
+        "decay_reason": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Optional reason for applying decay."
+        }
+      }
+    },
+    "governance_ref": {
+      "type": "object",
+      "description": "Optional reference to the governance rule or policy used to issue this trust event.",
+      "additionalProperties": false,
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Identifier of the governance policy."
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Version of the governance policy."
+        },
+        "policy_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URI pointing to the governance policy."
+        }
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the trust event was issued, expressed in ISO 8601 date-time format."
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional contextual information about the project, task, workflow, layer, or system in which the trust event was issued.",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional implementation-specific metadata.",
+      "additionalProperties": true
+    }
+  }
+}
