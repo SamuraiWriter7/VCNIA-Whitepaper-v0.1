@@ -1,0 +1,34 @@
+{
+  "type": "trace_record",
+  "trace_id": "trace_vcnia_001",
+  "creator_id": "creator_shidenkai_alpha",
+  "timestamp": "2026-04-26T00:00:00Z",
+  "content_hash": "sha256:examplehash1234567890abcdef",
+  "source_uri": "https://example.org/vcnia/trace/001",
+  "provenance": {
+    "source": "human-authored-specification",
+    "method": "manual-registration",
+    "parent_trace_ids": [],
+    "derived_from": [
+      "Kazene Model of Network Intelligence",
+      "Value Circulation OS Stack"
+    ]
+  },
+  "context": {
+    "project": "vcnia",
+    "layer": "existence-proof",
+    "document": "WHITEPAPER.md",
+    "version": "0.1.0",
+    "description": "Initial trace record for the VCNIA conceptual architecture."
+  },
+  "signature": {
+    "signature_type": "placeholder",
+    "signature_value": "placeholder-signature-value",
+    "public_key_ref": "placeholder-public-key-ref"
+  },
+  "metadata": {
+    "status": "sample",
+    "license": "to-be-defined",
+    "notes": "This is a sample trace record for validating trace-record-v0.1.schema.json."
+  }
+}
