@@ -218,7 +218,7 @@
       ],
       "description": "Optional operational status of the trust profile."
     },
-    "risk_flags": {
+      "risk_flags": {
       "type": "array",
       "description": "Optional list of risk signals associated with this trust profile.",
       "items": {
@@ -238,6 +238,8 @@
           "other"
         ]
       },
+      "uniqueItems": true
+    },
       "unique_collusion",
           "possible_manipulation",
           "insufficient_provenance",
