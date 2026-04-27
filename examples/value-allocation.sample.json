@@ -1,0 +1,53 @@
+{
+  "type": "value_allocation_event",
+  "allocation_id": "allocation_vcnia_001",
+  "recipient_id": "creator_shidenkai_alpha",
+  "source_trace_ids": [
+    "trace_vcnia_001"
+  ],
+  "related_gratitude_ids": [
+    "gratitude_vcnia_001"
+  ],
+  "related_trust_event_ids": [
+    "trust_event_vcnia_001"
+  ],
+  "trust_profile_ref": "trust_creator_shidenkai_alpha",
+  "value_type": "credit",
+  "amount": 120,
+  "unit": "VCNIA-credit",
+  "weight": 0.42,
+  "allocation_rule": "trust_weighted",
+  "settlement_period": "2026-04",
+  "calculation": {
+    "total_value_pool": 1000,
+    "trace_weight": 0.35,
+    "gratitude_factor": 0.82,
+    "trust_factor": 0.76,
+    "governance_modifier": 1.0,
+    "decay_factor": 1.0,
+    "formula": "allocated_value = total_value_pool × trace_weight × gratitude_factor × trust_factor × governance_modifier × decay_factor"
+  },
+  "governance_policy": {
+    "policy_id": "vcnia-governance-policy",
+    "policy_version": "0.1.0",
+    "policy_uri": "https://example.org/vcnia/governance-policy-v0.1"
+  },
+  "verification_status": "self_attested",
+  "risk_flags": [
+    "none"
+  ],
+  "dispute_status": "none",
+  "timestamp": "2026-04-26T03:00:00Z",
+  "context": {
+    "project": "vcnia",
+    "layer": "royalty-value-allocation",
+    "document": "WHITEPAPER.md",
+    "version": "0.1.0",
+    "description": "Sample value allocation event closing the VCNIA four-layer circulation loop."
+  },
+  "metadata": {
+    "status": "sample",
+    "license": "to-be-defined",
+    "notes": "This is a sample value allocation event for validating value-allocation-v0.1.schema.json."
+  }
+}
