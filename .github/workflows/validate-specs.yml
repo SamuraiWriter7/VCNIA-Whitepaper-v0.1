@@ -61,6 +61,11 @@ jobs:
                   "sample": "examples/trust-event.sample.json",
               },
               {
+                  "name": "Trust Profile v0.1",
+                  "schema": "schemas/trust-profile-v0.1.schema.json",
+                  "sample": "examples/trust-profile.sample.json",
+              },
+              {
                   "name": "Value Allocation Event v0.1",
                   "schema": "schemas/value-allocation-v0.1.schema.json",
                   "sample": "examples/value-allocation.sample.json",
