@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kazene.org/schemas/vcnia/trace-record-v0.1.schema.json",
+  "title": "VCNIA Trace Record",
+  "description": "A Trace Record is the foundational Existence Proof object in VCNIA. It records that a contribution, output, idea, action, or transformation existed at a specific time and context.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "trace_id",
+    "creator_id",
+    "timestamp",
+    "provenance"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "trace_record",
+      "description": "The fixed event type for a VCNIA trace record."
+    },
+    "trace_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^trace_[A-Za-z0-9._-]+$",
+      "description": "A unique identifier for the trace."
+    },
+    "creator_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "The human, AI agent, system, repository, or process that created or registered the trace."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the trace was created or registered, expressed in ISO 8601 date-time format."
+    },
+    "content_hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9:+/_=.-]+$",
+      "description": "Optional hash of the trace content, such as a SHA-256 hash. This is optional in v0.1 but may become required in later versions."
+    },
+    "source_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional URI pointing to the source, repository, document, platform, or record where the trace can be referenced."
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Information about the origin, source, and registration method of the trace.",
+      "additionalProperties": true,
+      "required": [
+        "source",
+        "method"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "The origin or source category of the trace."
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "The method by which the trace was created or registered."
+        },
+        "parent_trace_ids": {
+          "type": "array",
+          "description": "Optional list of parent traces that influenced or preceded this trace.",
+          "items": {
+            "type": "string",
+            "pattern": "^trace_[A-Za-z0-9._-]+$"
+          },
+          "uniqueItems": true
+        },
+        "derived_from": {
+          "type": "array",
+          "description": "Optional list of external references, source materials, or prior works from which this trace was derived.",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional contextual information about the environment, project, task, or situation in which the trace was created.",
+      "additionalProperties": true
+    },
+    "signature": {
+      "type": "object",
+      "description": "Optional cryptographic or semi-cryptographic signature information.",
+      "additionalProperties": false,
+      "properties": {
+        "signature_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "The type of signature used."
+        },
+        "signature_value": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The signature value."
+        },
+        "public_key_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional reference to the public key or verification material."
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional implementation-specific metadata.",
+      "additionalProperties": true
+    }
+  }
+}
